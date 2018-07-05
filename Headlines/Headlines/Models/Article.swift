@@ -30,13 +30,24 @@
 
 import Foundation
 
-class Article: Codable {
-  let author: String
+class Article: NSObject, Codable {
+  let author: String?
   let title: String
   let snippet: String
   let sourceURL: URL
   let imageURL: URL
-  let published: Date
+  let published: Date?
+    
+    private enum CodingKeys: String, CodingKey {
+        case author
+        case title
+        case snippet = "description"
+        case sourceURL = "url"
+        case imageURL = "urlToImage"
+        case published = "publishedAt"
+    }
+    
+    
   
   init(author: String, title: String, snippet: String, sourceURL: URL, imageURL: URL, published: Date) {
     self.author = author
@@ -46,4 +57,16 @@ class Article: Codable {
     self.imageURL = imageURL
     self.published = published
   }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: .title)
+        sourceURL = try container.decode(URL.self, forKey: .sourceURL)
+        imageURL = try container.decode(URL.self, forKey: .imageURL)
+        author = try container.decodeIfPresent(String.self, forKey: .author)
+        published = try container.decodeIfPresent(Date.self, forKey: .published)
+        
+        let rawSnippt = try container.decode(String.self, forKey: .snippet)
+        snippet = rawSnippt.deletingCharacters(in: CharacterSet.newlines)
+    }
 }

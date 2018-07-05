@@ -30,13 +30,13 @@
 
 import Foundation
 
-class NewsAPI {
+class NewsAPI: NSObject {
   
   static let service = NewsAPI()
     
     private struct Response: Codable {
-        let source: [Source]?
-        let srticles: [Article]?
+        let sources: [Source]?
+        let articles: [Article]?
     }
   
   private enum API {
@@ -69,20 +69,34 @@ class NewsAPI {
     }
   }
   
-  private(set) var sources: [Source] = []
-  private(set) var articles: [Article] = []
+  @objc dynamic private(set) var sources: [Source] = []
+  @objc dynamic private(set) var articles: [Article] = []
   
   func fetchSources() {
     API.sources.fetch { data in
-        if let sources = try! JSONDecoder().decode(Response.self, from: data).source {
+        if let sources = try! JSONDecoder().decode(Response.self, from: data).sources {
             self.sources = sources
         }
     }
   }
   
   func fetchArticles(for source: Source) {
+    // define custom date handler
+//    let formatter = ISO8601DateFormatter()
+//    let customDateHandler: (Decoder) throws -> Date = { decoder in
+//        var string = try decoder.singleValueContainer().decode(String.self)
+//        string.deleteMillisecondsIfPresent()
+//        guard let date = formatter.date(from: string) else { return Date() }
+//        return date
+//    }
+    
     API.articles(source).fetch { data in
-      
+        let coder = JSONDecoder()
+//        coder.dateDecodingStrategy = .custom(customDateHandler)
+        coder.dateDecodingStrategy = .iso8601
+        if let articles = try! coder.decode(Response.self, from: data).articles {
+            self.articles = articles
+        }
     }
   }
   

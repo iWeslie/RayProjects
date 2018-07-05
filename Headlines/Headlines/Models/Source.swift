@@ -30,7 +30,7 @@
 
 import Foundation
 
-class Source: Codable {
+class Source: NSObject, Codable {
   let id: String
   let name: String
   let overview: String
