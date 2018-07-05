@@ -18,7 +18,7 @@
 		5CBF8D951F17CB11009F97C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CBF8D931F17CB11009F97C9 /* Main.storyboard */; };
 		5CBF8D971F17CB11009F97C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CBF8D961F17CB11009F97C9 /* Assets.xcassets */; };
 		5CBF8D9A1F17CB11009F97C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CBF8D981F17CB11009F97C9 /* LaunchScreen.storyboard */; };
-		5CD405B01F32F0D800C5F39F /* FruitsDisplayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD405AF1F32F0D800C5F39F /* FruitsDisplayTableViewController.swift */; };
+		5CD405B01F32F0D800C5F39F /* FruitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD405AF1F32F0D800C5F39F /* FruitsTableViewController.swift */; };
 		5CD405B21F33485800C5F39F /* CaloriesInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD405B11F33485800C5F39F /* CaloriesInputViewController.swift */; };
 		5CF8B6F51F340D3B000455F1 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CF8B6F41F340D3B000455F1 /* Settings.storyboard */; };
 /* End PBXBuildFile section */
@@ -37,7 +37,7 @@
 		5CBF8D961F17CB11009F97C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CBF8D991F17CB11009F97C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CBF8D9B1F17CB11009F97C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CD405AF1F32F0D800C5F39F /* FruitsDisplayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitsDisplayTableViewController.swift; sourceTree = "<group>"; };
+		5CD405AF1F32F0D800C5F39F /* FruitsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitsTableViewController.swift; sourceTree = "<group>"; };
 		5CD405B11F33485800C5F39F /* CaloriesInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesInputViewController.swift; sourceTree = "<group>"; };
 		5CF8B6F41F340D3B000455F1 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,7 +66,7 @@
 			children = (
 				5CBF8D911F17CB11009F97C9 /* FruitsInputViewController.swift */,
 				5CD405B11F33485800C5F39F /* CaloriesInputViewController.swift */,
-				5CD405AF1F32F0D800C5F39F /* FruitsDisplayTableViewController.swift */,
+				5CD405AF1F32F0D800C5F39F /* FruitsTableViewController.swift */,
 				5C82BD711F33FF280046ED9F /* SettingsTableViewController.swift */,
 			);
 			path = Controllers;
@@ -111,7 +111,7 @@
 		5CBF8D8E1F17CB11009F97C9 /* ApplesToOranges */ = {
 			isa = PBXGroup;
 			children = (
-				5CBF8D8F1F17CB11009F97C9 /* AppDelegate.swift */,
+				D32A4E6E20EE05DC00CEEF2C /* AppDelegate */,
 				5C98A3271F340E6C00855512 /* Models */,
 				5C98A3261F340E3A00855512 /* Views */,
 				5C98A3251F340E2000855512 /* Controllers */,
@@ -123,6 +123,14 @@
 				5CBF8D9B1F17CB11009F97C9 /* Info.plist */,
 			);
 			path = ApplesToOranges;
+			sourceTree = "<group>";
+		};
+		D32A4E6E20EE05DC00CEEF2C /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				5CBF8D8F1F17CB11009F97C9 /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +213,7 @@
 				5C6AEC761F17CC8300AB9EA1 /* Fruit.swift in Sources */,
 				5C82BD721F33FF280046ED9F /* SettingsTableViewController.swift in Sources */,
 				5CBF8D921F17CB11009F97C9 /* FruitsInputViewController.swift in Sources */,
-				5CD405B01F32F0D800C5F39F /* FruitsDisplayTableViewController.swift in Sources */,
+				5CD405B01F32F0D800C5F39F /* FruitsTableViewController.swift in Sources */,
 				5CBF8D901F17CB11009F97C9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

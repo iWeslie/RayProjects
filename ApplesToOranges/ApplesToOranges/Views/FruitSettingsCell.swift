@@ -36,7 +36,9 @@ class FruitSettingsCell: UITableViewCell {
   @IBOutlet weak var caloriesTextField: UITextField!
 
   func configure(fruit: Fruit, index: Int) {
-    fruitNameLabel.text = "\(fruit.emojiChar) \(fruit.name)"
+    DispatchQueue.global().async {
+      self.fruitNameLabel.text = "\(fruit.emojiChar) \(fruit.name)"
+    }
     caloriesTextField.text = Formatter.string(from: fruit.calories)
     caloriesTextField.tag = index
     accessoryType = .none

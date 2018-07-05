@@ -47,3 +47,7 @@ struct Fruit {
     return customPluralName ?? name + "s"
   }
 }
+
+extension Fruit: Equatable {
+  
+}

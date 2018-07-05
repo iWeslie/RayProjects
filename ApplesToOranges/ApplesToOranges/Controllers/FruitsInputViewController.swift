@@ -39,7 +39,7 @@ class FruitsInputViewController: UIViewController {
   @IBOutlet private weak var stepper: UIStepper!
   @IBOutlet private weak var caloriesCountLabel: UILabel!
 
-  private var fruitsTableViewController: FruitsDisplayTableViewController!
+  private var fruitsTableViewController: FruitsTableViewController!
 
   private var fruits = FruitStore.fruits.sorted { $0.name < $1.name }
 
@@ -65,18 +65,18 @@ class FruitsInputViewController: UIViewController {
     super.viewDidAppear(animated)
 
     // Update fruits since calories may have changed in settings
-    fruits = FruitStore.fruits.sorted { $0.name < $1.name }
+    fruits = FruitStore.fruits
     reloadData()
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // Obtain reference to embedded child view controller
-    fruitsTableViewController = segue.destination as! FruitsDisplayTableViewController
+    fruitsTableViewController = segue.destination as! FruitsTableViewController
   }
 
   private func reloadData() {
     let selectedRow = pickerView.selectedRow(inComponent: 0)
-    let selectedFruit = fruits[selectedRow]
+    let selectedFruit = FruitStore.fruits[selectedRow]
     let totalCalories = selectedFruit.calories * selectedFruitCount
     fruitsTableViewController.configure(calories: totalCalories)
     pickerView.reloadAllComponents()
