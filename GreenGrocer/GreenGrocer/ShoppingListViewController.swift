@@ -45,6 +45,10 @@ class ShoppingListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.dragDelegate = self
+    tableView.dragInteractionEnabled = true
+    tableView.dropDelegate = self
+    
     configureAccessibility()
   }
   
@@ -132,3 +136,44 @@ extension ShoppingListViewController: ListControllerProtocol {
   }
 }
 
+
+extension ShoppingListViewController: UITableViewDragDelegate {
+  public func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+    let listItem = shoppingList[indexPath.row]
+    
+    let provider = NSItemProvider(object: listItem)
+    let dragItem = UIDragItem(itemProvider: provider)
+    return [dragItem]
+  }
+}
+
+extension ShoppingListViewController: UITableViewDropDelegate {
+  func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    // 1
+    guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+    
+    // 2
+    DispatchQueue.main.async { [weak self] in
+      tableView.beginUpdates()
+      // 3
+      coordinator.items.forEach({ (item) in
+        guard let sourceIndexPath = item.sourceIndexPath, let `self` = self else { return }
+        
+        // 4
+        let row = self.shoppingList.remove(at: sourceIndexPath.row)
+        self.shoppingList.insert(row, at: destinationIndexPath.row)
+        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+      })
+      tableView.endUpdates()
+    }
+  }
+  
+  // 1
+  func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+    return session.canLoadObjects(ofClass: ListItem.self)
+  }
+  // 2
+  func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+    return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+  }
+}

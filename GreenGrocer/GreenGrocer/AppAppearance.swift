@@ -30,6 +30,9 @@
 
 import UIKit
 
+let ggDarkGreen = "ggDarkGreen"
+let ggGreen = "ggGreen"
+
 extension UIColor {
   static var ggGreen : UIColor {
     return UIColor(red: 127/255.0, green: 148/255.0, blue: 49/255.0, alpha: 1.0)
@@ -49,7 +52,7 @@ func applyAppAppearance() {
 
 private func styleNavBar() {
   let appearanceProxy = UINavigationBar.appearance()
-  appearanceProxy.barTintColor = UIColor.ggDarkGreen
+  appearanceProxy.barTintColor = UIColor(named: ggDarkGreen)
   
   appearanceProxy.titleTextAttributes = [
     NSAttributedStringKey.foregroundColor: UIColor.white,
@@ -73,5 +76,5 @@ private func styleTintColor() {
 private func styleTabBarItem() {
   let appearanceProxy = UITabBarItem.appearance()
   appearanceProxy.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.white], for: .selected)
-  appearanceProxy.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor.ggGreen], for: UIControlState())
+  appearanceProxy.setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor(named: ggGreen)!], for: UIControlState())
 }

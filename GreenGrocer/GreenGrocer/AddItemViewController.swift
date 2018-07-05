@@ -41,11 +41,30 @@ class AddItemViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    pasteConfiguration = UIPasteConfiguration(acceptableTypeIdentifiers: [Product.productTypeId])
+    
     setupGestureRecognizer()
     configureAccessibility()
     
     itemTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     itemTextField.becomeFirstResponder()
+  }
+  
+  override func paste(itemProviders: [NSItemProvider]) {
+    // 1
+    itemProviders.forEach {
+      $0.loadObject(ofClass: Product.self, completionHandler: { (object, _) in
+        guard let product = object as? Product else { return }
+        let productImage = UIImage(named: product.photoName)
+        // 2
+        DispatchQueue.main.async { [weak self] in
+          guard let `self` = self else { return }
+          self.itemTextField.text = product.name
+          self.productImageView.image = productImage
+        }
+      })
+    }
   }
   
   func setupGestureRecognizer() {
