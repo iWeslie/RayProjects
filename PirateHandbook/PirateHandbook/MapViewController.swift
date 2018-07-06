@@ -27,12 +27,29 @@ class MapViewController: UIViewController {
   @IBOutlet weak var desiredYConstraint: NSLayoutConstraint!
   @IBOutlet weak var marker: UIView!
   @IBOutlet weak var markerImageView: UIImageView!
-  
+    
+    @IBOutlet weak var legendContainer: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    private let scrollIndicatorMargin: CGFloat = 8
+    private let legendCornerRadius: CGFloat = 8
+    
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupLegend()
     marker.layoutIfNeeded()
     decideArrowOrX()
   }
+    
+    private func setupLegend() {
+        legendContainer.layer.cornerRadius = legendCornerRadius
+        legendContainer.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: scrollIndicatorMargin).isActive = true
+        legendContainer.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -scrollIndicatorMargin).isActive = true
+        legendContainer.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor, constant: -scrollIndicatorMargin).isActive = true
+        additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: legendContainer.frame.height + scrollIndicatorMargin, right: scrollIndicatorMargin)
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
+    }
   
   func decideArrowOrX() {
     let currentPoint = marker.frame.origin

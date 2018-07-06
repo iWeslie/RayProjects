@@ -23,13 +23,29 @@
 import UIKit
 
 class DictionaryViewController: UITableViewController {
+    
+    private var searchController = UISearchController(searchResultsController: nil)
+    
   override func awakeFromNib() {
     super.awakeFromNib()
+    
+    navigationItem.searchController = searchController
+    navigationItem.hidesSearchBarWhenScrolling = true
+    
+    // refresh control
+    refreshControl = UIRefreshControl()
+    refreshControl?.addTarget(self, action: #selector(simulateRefresh), for: .valueChanged)
     
     let backgroundImageView = UIImageView(image: #imageLiteral(resourceName: "bg-parchment"))
     backgroundImageView.contentMode = .center
     tableView.backgroundView = backgroundImageView
   }
+    
+    @objc func simulateRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            self.refreshControl?.endRefreshing()
+        }
+    }
   
   @IBAction func dismissModal() {
     dismiss(animated: true, completion: nil)
