@@ -35,7 +35,7 @@ let hat = #imageLiteral(resourceName: "Park Hat")
 let glasses = #imageLiteral(resourceName: "Sunglasses")
 
 class AnnotationLayer: UIView {
-  var drawDebug = false
+  var drawDebug = true
 
   var faces: [FaceDimensions] = [] {
     didSet {
